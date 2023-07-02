@@ -6,8 +6,8 @@ services:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
-    # ports:
-    #   - 8000:8000
+    ports:
+    - 8000:8000
     # networks:
     #   - my-saleor-network
     command: uvicorn --reload saleor.asgi:application --host 0.0.0.0 --port 8000
