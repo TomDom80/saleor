@@ -17,7 +17,7 @@ RUN apt-get update \
   libpq5 \
   shared-mime-info \
   mime-support \
-  mc \
+  mc
 
 # RUN apt-get install -y mc
 
