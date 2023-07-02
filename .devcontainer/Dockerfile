@@ -16,7 +16,10 @@ RUN apt-get update \
   libxml2 \
   libpq5 \
   shared-mime-info \
-  mime-support
+  mime-support \
+  mc \
+
+# RUN apt-get install -y mc
 
 RUN echo 'image/webp webp' >> /etc/mime.types
 RUN echo 'image/avif avif' >> /etc/mime.types

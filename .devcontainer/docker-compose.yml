@@ -6,6 +6,10 @@ services:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
+    # ports:
+    #   - 8000:8000
+    # networks:
+    #   - my-saleor-network
     command: uvicorn --reload saleor.asgi:application --host 0.0.0.0 --port 8000
     env_file:
       - common.env
@@ -21,10 +25,14 @@ services:
     restart: unless-stopped
     ports:
       - 9000:80
+    # networks:
+    #   - my-saleor-network
 
   db:
     image: library/postgres:13-alpine
     restart: unless-stopped
+    # networks:
+    #   - my-saleor-network
     volumes:
       - saleor-db:/var/lib/postgresql/data
     environment:
@@ -34,6 +42,8 @@ services:
   redis:
     image: library/redis:5.0-alpine
     restart: unless-stopped
+    # networks:
+    #   - my-saleor-network
     volumes:
       - saleor-redis:/data
 
@@ -41,6 +51,8 @@ services:
     image: saleor
     command: celery -A saleor --app=saleor.celeryconf:app worker --loglevel=info -B
     restart: unless-stopped
+    # networks:
+    #   - my-saleor-network
     env_file:
       - common.env
       - backend.env
@@ -56,9 +68,17 @@ services:
       - "1025" # SMTP Server
       - "8025" # Mailpit UI
     restart: unless-stopped
+    # networks:
+    #   - my-saleor-network
 
 volumes:
   saleor-db:
     driver: local
   saleor-redis:
     driver: local
+
+# networks:
+#   my-saleor-network:
+#     external: true
+
+# docker network create my-saleor-network
